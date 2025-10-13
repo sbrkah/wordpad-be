@@ -1,4 +1,4 @@
-# Project Name
+# Wordpad Back End
 
 Backend for wordpad app dedicated to automate generation of game-sets daily using GitHub Actions.
 
