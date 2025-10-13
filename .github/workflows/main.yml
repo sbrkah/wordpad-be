@@ -1,0 +1,21 @@
+name: Generate Daily Set
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Run daily at midnight
+  workflow_dispatch:      # Manual trigger
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Generate daily set
+        run: |
+          node main.js
+      - name: Commit and push
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add api/daily-set.json
+          git commit -m "Update daily set" || exit 0
+          git push
