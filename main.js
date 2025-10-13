@@ -2,13 +2,13 @@ const fs = require('fs');
 
 function generateDailySet() {
     const commonLetters = 'etaoinshrdlcumwfgypbvkjxqz';
-    const set = Array.from({ length: 8 }, () =>
+    const arraySet = Array.from({ length: 8 }, () =>
         commonLetters[Math.floor(Math.random() * commonLetters.length)]
     )
-    const main = set.pop();
-    set = set.join('');
+    const main = arraySet.pop();
+    const charset = arraySet.join('');
 
-    return { set, main, date: new Date().toISOString().split('T')[0] };
+    return { charset, main, date: new Date().toISOString().split('T')[0] };
 }
 
 const dailySet = generateDailySet();
