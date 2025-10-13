@@ -29,12 +29,12 @@ function generateDailySet(history) {
     }
     
     // Choose main letter from the set
-    const main = arraySet.pop();
-    const charset = arraySet.join('');
+    const mainLetter = arraySet.pop();
+    const builderLetter = arraySet.join('');
     
     return { 
-        charset, 
-        main, 
+        builderLetter, 
+        mainLetter, 
         date: new Date().toISOString().split('T')[0] 
     };
 }
