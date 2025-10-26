@@ -11,25 +11,28 @@ async function loadHistory() {
     }
 }
 
-function generateDailySet(history) {
+async function generateDailySet(history) {
     const mainLetterHistory = [...history.map(item => item.main)];
     const commonLetters = 'etaoinshrdlcumwfgypbvkjxqz';
+    const corelation = JSON.parse(await fs.promises.readFile('./corelation.json', 'utf8'));
     const arraySet = [];
-    
+    let mainLetter = '';
+
+    while (1){
+        mainLetter = commonLetters[Math.floor(Math.random() * commonLetters.length)];
+        if (!mainLetterHistory.includes(mainLetter)) {
+            break;
+        }
+    }
     // Generate 8 unique letters
-    while (arraySet.length < 8) {
+    while (arraySet.length < 7) {
         const char = commonLetters[Math.floor(Math.random() * commonLetters.length)];
         // make sure the last chat is not in the main letter history
-        if (mainLetterHistory.includes(char)) {
-            continue;
-        }
-        if (!arraySet.includes(char)) {
+        if (!arraySet.includes(char) && char !== mainLetter && corelation[`${mainLetter}${char}`] > 0) {
             arraySet.push(char);
         }
     }
     
-    // Choose main letter from the set
-    const mainLetter = arraySet.pop();
     const builderLetter = arraySet.join('');
     
     return { 
@@ -42,7 +45,7 @@ function generateDailySet(history) {
 // Main execution
 async function main() {
     const history = await loadHistory();
-    const dailySet = generateDailySet(history);
+    const dailySet = await generateDailySet(history);
     
     fs.writeFileSync('./api/daily-set.json', JSON.stringify(dailySet, null, 2));
     
