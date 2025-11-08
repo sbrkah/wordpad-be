@@ -2,6 +2,10 @@
 
 Backend for wordpad app dedicated to automate generation of game-sets daily using GitHub Actions.
 
+## Access
+
+to Access daily set, open https://sbrkah.github.io/wordpad-be/api/daily-set.json
+
 ## Usage
 
 1. Run the project using `node main.js`.
