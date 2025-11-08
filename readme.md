@@ -4,7 +4,7 @@ Backend for wordpad app dedicated to automate generation of game-sets daily usin
 
 ## Access
 
-to Access daily set, open https://github.com/sbrkah/wordpad-be.git
+to Access daily set, open https://sbrkah.github.io/wordpad-be/api/daily-set.json
 
 ## Usage
 
