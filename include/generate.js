@@ -91,7 +91,10 @@ class Generate {
 
     // Select a random formation
     static #selectFormation() {
-        return this.FORMATIONS[Math.floor(Math.random() * this.FORMATIONS.length)];
+        let format = this.FORMATIONS[Math.floor(Math.random() * this.FORMATIONS.length)];
+        let deltaLen = this.#desiredLength - format.length;
+        if (deltaLen > 0) format += "R".repeat(deltaLen);
+        return format;
     }
 
     // Get pool for category without filtering by #possibleSet initially
@@ -136,6 +139,7 @@ class Generate {
             }
             allLetters.push(letter);
             this.#updatePossibleSet();
+            if (this.#desiredLength == allLetters.length) break;
         }
 
         return result;
