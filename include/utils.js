@@ -1,10 +1,10 @@
 import { readFile } from 'fs/promises';
 
-async function fileReader(filepath, encoding = "utf8", split = NaN) {
+async function fileReader(filepath, encoding = "utf8", split = false) {
     try {
         const data = await readFile(filepath, encoding);
         if (split) {
-            return data.split(split);
+            return data.split(/\r?\n/);
         }
         return await readFile(filepath, encoding);
     } catch (error) {
