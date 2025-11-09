@@ -39,7 +39,7 @@ class Generate {
 
     // Initialize with full word library
     static async #initializeWordLib() {
-        this.wordLib = await fileReader("./corelation/xxx.txt", "utf8", "\n");
+        this.wordLib = await fileReader("wordsets-kbbi-filtered.txt", "utf8", "\n");
         const allLetters = new Set(this.wordLib.join(""));
         this.#possibleSet = allLetters;
         this.#regularApplyNormal();
@@ -78,6 +78,7 @@ class Generate {
             builderLetter: this.bl.join(""),
             mainLetter: this.ml,
             date: new Date().toISOString().split("T")[0],
+            optimal: this.#optscore,
         };
     }
 
@@ -181,7 +182,15 @@ class Generate {
         return this.#getDict();
     }
 
+    static #optscore = 0;
+    static calculateOptimalScore(){
+        let sortlib = this.wordLib.sort((a, b) => a.length - b.length);
+        this.#optscore = sortlib.filter((w, index) => index % 2 == 0).join("").length;
+        console.log(`Maximum Score : ${sortlib.join("").length*2} | optimal : ${this.#optscore}`)
+    }
+
     static saveDailySet() {
+        this.calculateOptimalScore();
         const dailySet = this.#getDict();
         let updatedHistory = [dailySet, ...this.history];
         writeFileSync("./api/daily-set.json", JSON.stringify(dailySet, null, 2));
