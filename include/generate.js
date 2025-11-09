@@ -39,7 +39,7 @@ class Generate {
 
     // Initialize with full word library
     static async #initializeWordLib() {
-        this.wordLib = await fileReader("wordsets-kbbi-filtered.txt", "utf8", "\r\n");
+        this.wordLib = await fileReader("wordsets-kbbi-filtered.txt", "utf8", true);
         const allLetters = new Set(this.wordLib.join(""));
         this.#possibleSet = allLetters;
         this.#regularApplyNormal();
